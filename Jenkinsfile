@@ -11,16 +11,17 @@ pipeline {
 
         stage('Install dependencies') {
             steps {
-                // Install the required dependencies
-              
-                bat 'pip install -r requirements.txt'
+                // Create a virtual environment
+                bat 'python -m venv venv'
+                // Activate the virtual environment and install dependencies
+                bat '.\\venv\\Scripts\\activate && pip install -r requirements.txt'
             }
         }
 
         stage('Run tests') {
             steps {
                 // Execute the tests
-                bat 'pytest test.py'
+                bat '.\\venv\\Scripts\\activate && pytest test.py'
             }
         }
 
